@@ -1,0 +1,67 @@
+name: Build
+
+# Build on every branch push, tag push, and pull request change:
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false # Allow one of the matrix builds to fail without failing others
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: ['3.11']
+    
+    # The job
+    name: Python ${{ matrix.python-version }} / ${{ matrix.os }}
+    
+    # The steps in the job. Each step either RUNS code, or USES an action.
+    steps:
+    
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: Setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+          architecture: x64
+
+      - name: Build wheels
+        uses: joerick/cibuildwheel@v1.9.0
+        with:
+          output-dir: wheelhouse
+        env:
+          CIBW_ARCHS_LINUX: "x86_64 aarch64"
+          CIBW_ARCHS_WINDOWS: "AMD64"
+          CIBW_ARCHS_MACOS: "x86_64"
+          CIBW_BUILD: cp3*-macosx_x86_64 cp3*-win_amd64 cp3*-manylinux_x86_64 cp3*-manylinux_aarch64
+          CIBW_SKIP: cp35-* cp36-*
+      - name: Store artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          path: ./wheelhouse/*.whl
+          
+    build:
+        runs-on: ${{ matrix.os }}
+        defaults:
+          run:
+            shell: bash -l {0}
+        strategy:
+          fail-fast: false
+          matrix:
+            os: [ ubuntu-20.04, windows-2022 ]
+            python-version: ["3.10"]
+            # os: [ ubuntu-20.04, macos-11, windows-2022 ]
+            # python-version: [ 3.7, 3.9, "3.10", "3.11"]
+            # include:
+              # - os: ubuntu-20.04
+                # python-version: 3.8
+                # openmp: "True"
+              # - os: ubuntu-20.04
+                # python-version: 3.8
+              # - os: macos-11
+                # python-version: 3.8
+                # single_action_config: "True"
+              # - os: windows-2019
+                # python-version: 3.8
