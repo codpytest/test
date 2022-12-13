@@ -32,8 +32,8 @@ jobs:
           
       - name: Build wheels
         run: python -m cibuildwheel --output-dir wheelhouse
-          env:  # Run the test suite after each build.
-            CIBW_BUILD: {cp311-win_amd64}
+        env:  # Run the test suite after each build.
+          CIBW_BUILD: cp311-win_amd64
           # CIBW_TEST_REQUIRES: "pytest"
           # CIBW_TEST_COMMAND: pytest {package}/tests
       
