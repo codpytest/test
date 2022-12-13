@@ -36,12 +36,12 @@ jobs:
           
       - name: Build wheels
         run: python -m cibuildwheel --output-dir wheelhouse
-        env:  # Run the test suite after each build.
-          CIBW_TEST_REQUIRES: "pytest"
-          CIBW_TEST_COMMAND: pytest {package}/tests
+        # env:  # Run the test suite after each build.
+          # CIBW_TEST_REQUIRES: "pytest"
+          # CIBW_TEST_COMMAND: pytest {package}/tests
       
       - name: Upload as build artifacts
         uses: actions/upload-artifact@v3
         with:
           name: wheels
-          path: dist/*.whl
+          path: ./dist/
