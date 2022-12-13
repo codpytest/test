@@ -12,6 +12,8 @@ jobs:
         python-version: ["3.10"] #["3.9", "3.10"]
         exclude:
           - os: [windows-2019, win32]
+        env: 
+          CIBW_ARCHS_WINDOWS: AMD64 x86 ARM64
 
     steps:
       - uses: actions/checkout@v3
