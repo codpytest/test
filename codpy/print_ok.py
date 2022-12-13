@@ -1,3 +1,6 @@
 import os, sys
 
-print("ok")
+def printp():
+    print("ok")
+
+printp()
