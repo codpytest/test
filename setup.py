@@ -1,9 +1,6 @@
-﻿#! /usr/bin/env python
-#
-# Copyright (C) 
-
-from __future__ import annotations
-from setuptools import setup, Extension, Command
+﻿# from __future__ import annotations
+from setuptools import Extension
+from setuptools import setup
 __version__ = '0.0.1'
 
 
