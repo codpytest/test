@@ -40,7 +40,7 @@ jobs:
       - name: Upload as build artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: wheels
+          name: test_wheels
           path: ./wheelhouse/*.whl
 
   upload_all:
@@ -50,7 +50,7 @@ jobs:
     steps:
     - uses: actions/download-artifact@v3
       with:
-        name: artifact
+        name: test_wheels
         path: dist
 
     - uses: pypa/gh-action-pypi-publish@v1.5.0
