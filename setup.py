@@ -23,5 +23,5 @@ if __name__ == "__main__":
         description="test",
         long_description="",
         ext_modules=[printf],
-        python_requires=">=3.7"
+        python_requires=">=3.0"
     )
