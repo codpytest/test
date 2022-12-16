@@ -15,7 +15,7 @@ printf = Extension(
 
 if __name__ == "__main__":
     setup(
-        name = 'testing_2022_py_12',
+        name = 'testing202212',
         version=__version__,
         author="testing_2022",
         author_email="",
