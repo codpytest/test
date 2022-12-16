@@ -76,4 +76,5 @@ jobs:
 
     - uses: pypa/gh-action-pypi-publish@v1.6.4
       with:
-        repo-token: ${{ secrets.PYPI_API_TOKEN }}
+        user: __token__
+        password: ${{ secrets.PYPY_API_TOKEN }}
