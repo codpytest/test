@@ -15,12 +15,12 @@ printf = Extension(
 
 if __name__ == "__main__":
     setup(
-        name = 'test',
+        name = 'testing_2022_py_12',
         version=__version__,
-        author="test",
+        author="testing_2022",
         author_email="",
         url="",
-        description="test",
+        description="testing 2022_",
         long_description="",
         ext_modules=[printf],
         python_requires=">=3.0"
