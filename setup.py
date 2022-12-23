@@ -1,4 +1,6 @@
 import os, sys
+from pybind11 import get_cmake_dir
+from pybind11.setup_helpers import Pybind11Extension, build_ext
 
 from distutils.core import setup, Extension
 from distutils import sysconfig
