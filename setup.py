@@ -1,4 +1,5 @@
 import os, sys
+import pybind11
 from pybind11 import get_cmake_dir
 from pybind11.setup_helpers import Pybind11Extension, build_ext
 
@@ -11,7 +12,7 @@ ext_modules = [
     Extension(
     'testing202212',
         ['src/funcs.cpp', 'src/wrap.cpp'],
-        include_dirs=['pybind11/include'],
+        include_dirs=[pybind11.get_include()],
     language='c++',
     # extra_compile_args = cpp_args,
     define_macros = [('VERSION_INFO', __version__)]
