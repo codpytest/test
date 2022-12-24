@@ -27,7 +27,7 @@ jobs:
         os: [windows-latest]
         python-version: ["3.10"] #["3.9", "3.10"]
         architecture: [x64]
-        needs: compile
+        needs: [compile]
         # exclude:
         #   - os: [windows-2022, win32]
 
