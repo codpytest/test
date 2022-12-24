@@ -26,6 +26,9 @@ setup(
     author_email='smi@miryusupov.com',
     url="",
     description='testing 2022_',
+    long_description_content_type='text/markdown',
     long_description="",
     ext_modules=ext_modules,
+    classifiers=["License :: OSI Approved :: MIT License",
+                 "Programming Language :: Python :: 3"]
 )

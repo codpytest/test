@@ -3,18 +3,18 @@ name: build
 on: [push]
 
 jobs:
-  build_sdist:
-    name: Build SDist
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
+  # build_sdist:
+  #   name: Build SDist
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v3
 
-    - name: Build SDist
-      run: pipx run build --sdist
+  #   - name: Build SDist
+  #     run: pipx run build --sdist
 
-    - uses: actions/upload-artifact@v3
-      with:
-        path: dist/*.tar.gz
+  #   - uses: actions/upload-artifact@v3
+  #     with:
+  #       path: dist/*.tar.gz
 
   build_wheels:
     runs-on: ${{ matrix.os }}
@@ -26,7 +26,8 @@ jobs:
       - uses: actions/checkout@v3
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.11.4
-
+        env:
+          CIBW_BUILD: cp39-*
       - uses: actions/upload-artifact@v3
         with:
           path: ./wheelhouse/*.whl
@@ -61,7 +62,7 @@ jobs:
 
   upload_pypi:
     name: Upload
-    needs: [build_wheels, build_sdist]
+    needs: [build_wheels] #, build_sdist
     runs-on: ubuntu-latest
     # if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
     steps:
