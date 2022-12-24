@@ -10,7 +10,7 @@ __version__ = '0.0.2'
 
 ext_modules = [
     Extension(
-    'testing202212',
+    'wrap',
         ['src/funcs.cpp', 'src/wrap.cpp'],
         include_dirs=[pybind11.get_include()],
     language='c++',
