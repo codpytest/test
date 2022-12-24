@@ -73,17 +73,17 @@ jobs:
     #   with:
     #     name: artifact
     #     path: dist
-    - name: "Installs and upgrades pip, installs other dependencies and installs the package from setup.py"
-      run: |
-        python3 -m pip install --upgrade pip
-        python3 -m pip install setuptools wheel twine
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-        python3 setup.py install
+    #- name: "Installs and upgrades pip, installs other dependencies and installs the package from setup.py"
+    #  run: |
+     #   python3 -m pip install --upgrade pip
+      #  python3 -m pip install setuptools wheel twine
+       # if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+       # python3 setup.py install
 
     - name: Build and Upload
       run: |
-        python3 setup.py sdist bdist_wheel
-        python3 -m twine upload dist/*
+        python setup.py sdist bdist_wheel
+        python -m twine upload dist/*
 
     - uses: pypa/gh-action-pypi-publish@v1.6.4
       with:
