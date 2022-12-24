@@ -3,21 +3,21 @@ name: build
 on: [push]
 
 jobs:
-  # build_sdist:
-  #   name: Build SDist
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - uses: actions/checkout@v3
+  build_sdist:
+    name: Build SDist
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
 
-  #   - name: Build SDist
-  #     run: pipx run build --sdist
+    - name: Build SDist
+      run: pipx run build --sdist
 
-  #   - name: Check metadata
-  #     run: pipx run twine check dist/*
+    - name: Check metadata
+      run: pipx run twine check dist/*
 
-  #   - uses: actions/upload-artifact@v3
-  #     with:
-  #       path: dist/*.tar.gz
+    - uses: actions/upload-artifact@v3
+      with:
+        path: dist/*.tar.gz
 
   build_wheels:
     runs-on: ${{ matrix.os }}
@@ -45,10 +45,9 @@ jobs:
           python -m pip install -U twine
           
       - name: Build wheels
-        run: python -m cibuildwheel --output-dir dist
+        run: python -m cibuildwheel --output-dir wheelhouse
         env:  # Run the test suite after each build.
-          CIBW_BUILD: cp39-* cp310-*  #cp311-*' 
-          # CIBW_BUILD: cp311-win_amd64
+          CIBW_BUILD: cp39-*
           # CIBW_TEST_REQUIRES: "pytest"
           # CIBW_TEST_COMMAND: pytest {package}/tests
       
@@ -56,18 +55,14 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: test_wheels
-          path: ./dist/*.whl
+          path: ./wheelhouse/*.whl
 
-  upload_all:
+  upload_pypi:
     name: Upload
-    needs: [build_wheels] #, build_sdist
+    needs: [build_wheels, build_sdist]
     runs-on: ubuntu-latest
     # if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
     steps:
-    - uses: actions/setup-python@v4
-      with:
-        python-version: "3.x"
-
     - uses: actions/download-artifact@v3
       with:
         name: artifact
