@@ -20,16 +20,14 @@ jobs:
         path: dist/*.tar.gz
 
   build_wheels:
-
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu_latest, windows-latest]
-        #python-version: ["3.10"] #["3.9", "3.10"]
-        #architecture: [x64]
-        #needs: [compile]
-        # exclude:
-        #   - os: [windows-2022, win32]
+        os: [ubuntu-latest, windows-latest]
+        python-version: ["3.10"] #["3.9", "3.10"]
+        architecture: [x64]
+        exclude:
+           - os: [windows-2022, win32]
 
     steps:
       - uses: actions/checkout@v3
