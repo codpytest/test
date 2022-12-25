@@ -5,7 +5,7 @@ from pybind11.setup_helpers import Pybind11Extension, build_ext
 
 from distutils.core import setup, Extension
 from distutils import sysconfig
-__version__ = '0.0.6'
+__version__ = '0.0.7'
 cpp_args = ['-std=c++11', '-stdlib=libc++', '-mmacosx-version-min=10.7']
 # <%
 # cfg['compiler_args'] = ['-std=c++11', '-stdlib=libc++', '-mmacosx-version-min=10.7']
