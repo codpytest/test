@@ -1,13 +1,11 @@
 import os, sys
 import pybind11
-from setuptools import find_packages
 from pybind11 import get_cmake_dir
 from pybind11.setup_helpers import Pybind11Extension, build_ext
 
 from distutils.core import setup, Extension
 from distutils import sysconfig
 __version__ = '0.0.6'
-package_dir = "src"
 # cpp_args = ['-std=c++11', '-stdlib=libc++', '-mmacosx-version-min=10.7']
 # <%
 # cfg['compiler_args'] = ['-std=c++11', '-stdlib=libc++', '-mmacosx-version-min=10.7']
@@ -16,21 +14,18 @@ package_dir = "src"
 # %>
 
 
-# ext_modules = [
-#     Extension(
-#     'wrap',
-#         ['src/funcs.cpp', 'src/wrap.cpp', 'src/inv.cpp'],
-#         include_dirs=[pybind11.get_include()],
-#     language='c++',
-#     # extra_compile_args = cpp_args,
-#     define_macros = [('VERSION_INFO', __version__)]
-#     ),
-# ]
+ext_modules = [
+    Extension(
+    'wrap',
+        ['src/funcs.cpp', 'src/wrap.cpp'],
+        include_dirs=[pybind11.get_include()],
+    language='c++',
+    # extra_compile_args = cpp_args,
+    define_macros = [('VERSION_INFO', __version__)]
+    ),
+]
 
 setup(
-    packages=find_packages(package_dir),
-    package_dir={"": package_dir},
-    include_package_data=False,
     name='testing202212',
     version=__version__,
     author='smi',
@@ -39,7 +34,7 @@ setup(
     description='testing 2022_',
     long_description_content_type='text/markdown',
     long_description="",
-    #ext_modules=ext_modules,
+    ext_modules=ext_modules,
     classifiers=["License :: OSI Approved :: MIT License",
                  "Programming Language :: Python :: 3"]
 )
