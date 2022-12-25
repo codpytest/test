@@ -16,7 +16,7 @@ ext_modules = [
         include_dirs=[pybind11.get_include(),
         'src/include'],
     language='c++',
-    extra_compile_args = cpp_args,
+    #extra_compile_args = cpp_args,
     define_macros = [('VERSION_INFO', __version__)]
     ),
 ]
