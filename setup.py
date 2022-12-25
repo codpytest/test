@@ -6,7 +6,7 @@ from pybind11.setup_helpers import Pybind11Extension, build_ext
 from distutils.core import setup, Extension
 from distutils import sysconfig
 __version__ = '0.0.6'
-# cpp_args = ['-std=c++11', '-stdlib=libc++', '-mmacosx-version-min=10.7']
+cpp_args = ['-std=c++11', '-stdlib=libc++', '-mmacosx-version-min=10.7']
 # <%
 # cfg['compiler_args'] = ['-std=c++11', '-stdlib=libc++', '-mmacosx-version-min=10.7']
 # cfg['include_dirs'] = ['C:/libraries/eigen-3.4.0']
@@ -17,10 +17,11 @@ __version__ = '0.0.6'
 ext_modules = [
     Extension(
     'wrap',
-        ['src/funcs.cpp', 'src/wrap.cpp'],
-        include_dirs=[pybind11.get_include()],
+        ['src/funcs.cpp', 'src/wrap.cpp','src/inv.cpp'],
+        include_dirs=[pybind11.get_include(),
+        'test/src/include'],
     language='c++',
-    # extra_compile_args = cpp_args,
+    extra_compile_args = cpp_args,
     define_macros = [('VERSION_INFO', __version__)]
     ),
 ]
@@ -38,3 +39,10 @@ setup(
     classifiers=["License :: OSI Approved :: MIT License",
                  "Programming Language :: Python :: 3"]
 )
+
+#toml
+# [tool.cibuildwheel.windows]
+# before-all = ["choco install eigen opencv"]
+# environment = { OpenCV_DIR="c:/tools/opencv/build" }
+# before-build = "pip install delvewheel"
+# repair-wheel-command = "delvewheel repair -w {dest_dir} {wheel} --add-path C:/tools/opencv/build/x64/vc15/bin"
