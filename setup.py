@@ -7,11 +7,6 @@ from distutils.core import setup, Extension
 from distutils import sysconfig
 __version__ = '0.0.9'
 cpp_args = ['-std=c++11', '-stdlib=libc++', '-mmacosx-version-min=10.7']
-# <%
-# cfg['compiler_args'] = ['-std=c++11', '-stdlib=libc++', '-mmacosx-version-min=10.7']
-# cfg['include_dirs'] = ['C:/libraries/eigen-3.4.0']
-# setup_pybind11(cfg)
-# %>
 
 
 ext_modules = [
@@ -31,7 +26,7 @@ setup(
     version=__version__,
     author='smi',
     author_email='smi@miryusupov.com',
-    url="",
+    url="https://pypi.org/project/testing202212/",
     description='testing 2022_',
     long_description_content_type='text/markdown',
     long_description="",
