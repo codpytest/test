@@ -19,7 +19,7 @@ ext_modules = [
     'wrap',
         ['src/funcs.cpp', 'src/wrap.cpp','src/inv.cpp'],
         include_dirs=[pybind11.get_include(),
-        'test/src/include'],
+        '/src/include'],
     language='c++',
     extra_compile_args = cpp_args,
     define_macros = [('VERSION_INFO', __version__)]
