@@ -9,11 +9,6 @@ namespace py = pybind11;
 
 using namespace pybind11::literals;
 
-double kernel(const VectorXd& a, const VectorXd& b){
-	    	return(exp(-0.5*((a-b).squaredNorm())));
-
-}
-
 Eigen::MatrixXd inv(Eigen::MatrixXd xs) {
     return xs.inverse();
 }
