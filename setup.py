@@ -16,8 +16,8 @@ cpp_args = ['-std=c++11', '-stdlib=libc++', '-mmacosx-version-min=10.7']
 
 ext_modules = [
     Extension(
-    'wrap',
-        ['src/funcs.cpp', 'src/wrap.cpp','src/inv.cpp'],
+    'inv',
+        ['src/inv.cpp'],
         include_dirs=[pybind11.get_include(),
         'src/include'],
     language='c++',
