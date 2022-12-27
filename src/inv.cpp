@@ -1,7 +1,7 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/numpy.h>
 #include <pybind11/eigen.h>
-#include <boost/multiprecision/cpp_int.hpp>
+
 
 
 #include <Eigen/LU>
@@ -10,7 +10,6 @@
 namespace py = pybind11;
 
 using namespace pybind11::literals;
-using namespace boost::multiprecision;
 using namespace std;
 
 Eigen::MatrixXd inv(Eigen::MatrixXd xs) {
