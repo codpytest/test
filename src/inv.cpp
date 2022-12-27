@@ -1,6 +1,8 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/numpy.h>
 #include <pybind11/eigen.h>
+#include <boost/multiprecision/cpp_int.hpp>
+
 
 #include <Eigen/LU>
 #include <Eigen/Dense>
@@ -8,6 +10,8 @@
 namespace py = pybind11;
 
 using namespace pybind11::literals;
+using namespace boost::multiprecision;
+using namespace std;
 
 Eigen::MatrixXd inv(Eigen::MatrixXd xs) {
     return xs.inverse();
@@ -16,6 +20,8 @@ Eigen::MatrixXd inv(Eigen::MatrixXd xs) {
 Eigen::VectorXd lstsq(Eigen::MatrixXd A, Eigen::VectorXd b) {
     return (A.transpose() * A).ldlt().solve(A.transpose() * b);
 }
+
+
 
 PYBIND11_PLUGIN(inv) {
     pybind11::module m("code", "auto-compiled c++ extension");

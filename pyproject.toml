@@ -4,3 +4,6 @@ build-backend = "setuptools.build_meta"
 
 [tool.cibuildwheel]
 build-verbosity = 3
+# Skip 32 bit architectures, musllinux, and i686
+skip = ["*-win32", "*-musllinux_x86_64", "*_i686"]
+before-build = "python -m pip install cmake"

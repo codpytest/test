@@ -34,10 +34,3 @@ setup(
     classifiers=["License :: OSI Approved :: MIT License",
                  "Programming Language :: Python :: 3"]
 )
-
-#toml
-# [tool.cibuildwheel.windows]
-# before-all = ["choco install eigen opencv"]
-# environment = { OpenCV_DIR="c:/tools/opencv/build" }
-# before-build = "pip install delvewheel"
-# repair-wheel-command = "delvewheel repair -w {dest_dir} {wheel} --add-path C:/tools/opencv/build/x64/vc15/bin"
