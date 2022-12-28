@@ -2,9 +2,7 @@
 #include <pybind11/numpy.h>
 #include <pybind11/eigen.h>
 //#include <boost/stacktrace.hpp>
-
-
-
+#include <xtensor/xmath.cpp>
 #include <Eigen/LU>
 #include <Eigen/Dense>
 
