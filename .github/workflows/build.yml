@@ -23,12 +23,12 @@ jobs:
         os: [windows-latest, ubuntu-latest]
         python-version: ["3.10"]
     steps:
-      - name: Install boost
-        uses: MarkusJx/install-boost@v2.1.0
-        id: install-boost
-        with:
-          boost_version: 1.76.0
-          boost_install_dir: ${{ matrix.boost_install_dir }}
+      # - name: Install boost
+      #   uses: MarkusJx/install-boost@v2.1.0
+      #   id: install-boost
+      #   with:
+      #     boost_version: 1.76.0
+      #     boost_install_dir: ${{ matrix.boost_install_dir }}
 
       - uses: actions/checkout@v3
       - name: Build wheels
@@ -40,21 +40,21 @@ jobs:
           # # Specify which Python versions to build wheels
           # # https://cibuildwheel.readthedocs.io/en/stable/options/#build-skip
           CIBW_SKIP: "*-win32 *-musllinux_x86_64 *_i686"
-          CIBW_BEFORE_BUILD: python -m pip install cmake
-          CIBW_BEFORE_BUILD_LINUX: echo $BOOST_ROOT
-          CIBW_BEFORE_ALL_LINUX: >
-            yum install -y wget &&
-            cd / &&  mkdir boost && cd boost &&
-            wget --no-check-certificate 'https://sourceforge.net/projects/boost/files/boost/1.76.0/boost_1_76_0.tar.bz2' && 
-            tar xf boost_1_76_0.tar.bz2 &&
-            cd {package}
-          CIBW_TEST_COMMAND: python -m pytest --rootdir={package} {package}
-          CIBW_TEST_REQUIRES: pytest
-          CIBW_ENVIRONMENT_WINDOWS: BOOST_ROOT='${{ steps.install-boost.outputs.BOOST_ROOT }}'
-          # CIBW_ENVIRONMENT_MACOS: BOOST_ROOT='${{ steps.install-boost.outputs.BOOST_ROOT }}'
-          CIBW_ENVIRONMENT_LINUX: BOOST_ROOT=/boost
-          CIBW_ENVIRONMENT_PASS_LINUX: BOOST_ROOT
-          
+          # CIBW_BEFORE_BUILD: python -m pip install cmake
+          # CIBW_BEFORE_BUILD_LINUX: echo $BOOST_ROOT
+          # CIBW_BEFORE_ALL_LINUX: >
+          #   yum install -y wget &&
+          #   cd / &&  mkdir boost && cd boost &&
+          #   wget --no-check-certificate 'https://sourceforge.net/projects/boost/files/boost/1.76.0/boost_1_76_0.tar.bz2' && 
+          #   tar xf boost_1_76_0.tar.bz2 &&
+          #   cd {package}
+          # CIBW_TEST_COMMAND: python -m pytest --rootdir={package} {package}
+          # CIBW_TEST_REQUIRES: pytest
+          # CIBW_ENVIRONMENT_WINDOWS: BOOST_ROOT='${{ steps.install-boost.outputs.BOOST_ROOT }}'
+          # # CIBW_ENVIRONMENT_MACOS: BOOST_ROOT='${{ steps.install-boost.outputs.BOOST_ROOT }}'
+          # CIBW_ENVIRONMENT_LINUX: BOOST_ROOT=/boost
+          # CIBW_ENVIRONMENT_PASS_LINUX: BOOST_ROOT
+
       - uses: actions/upload-artifact@v3
         with:
           path: ./wheelhouse/*.whl
