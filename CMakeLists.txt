@@ -13,5 +13,5 @@ message("${Boost_LIBRARIES}")
 include_directories(${Boost_INCLUDE_DIRS})
 
 # add_executable(test main.cpp)
-target_link_libraries(test ${Boost_LIBRARIES})
-target_compile_definitions(test PRIVATE -DBOOST_NO_AUTO_PTR -DBOOST_ALL_NO_LIB)
+# target_link_libraries(test ${Boost_LIBRARIES})
+# target_compile_definitions(test PRIVATE -DBOOST_NO_AUTO_PTR -DBOOST_ALL_NO_LIB)
