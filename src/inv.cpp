@@ -11,7 +11,7 @@ namespace py = pybind11;
 using namespace pybind11::literals;
 using namespace std;
 
-Eigen::MatrixXd inv(Eigen::MatrixXd xs) {
+Eigen::MatrixXd inv(Eigen::MatrixXd& xs) {
     return xs.inverse();
 }
 
