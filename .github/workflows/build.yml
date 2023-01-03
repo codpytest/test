@@ -23,6 +23,7 @@ jobs:
         os: [windows-latest, ubuntu-latest]
         python-version: ["3.10"]
     steps:
+      - uses: actions/checkout@v3
       - name: Install boost
         uses: MarkusJx/install-boost@v2.1.0
         id: install-boost
