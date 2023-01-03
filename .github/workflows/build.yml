@@ -24,21 +24,28 @@ jobs:
         python-version: ["3.10"]
     steps:
     - uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-        submodules: recursive
         
-    - name: Install boost
+    - name: Get Boost
       uses: MarkusJx/install-boost@v2.0.0
       id: install-boost
       with:
-        boost_version: 1.72.0
-        # platform_version: 2019
+        # REQUIRED: Specify the required boost version
+        # A list of supported versions can be found here: 
+        # https://github.com/actions/boost-versions/blob/main/versions-manifest.json
+        boost_version: 1.73.0
     
-    - name: Configure CMake
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+    - name: run cmake
       env:
         BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
+      run: > 
+        cmake . -DCMAKE_BUILD_TYPE=${{ matrix.BUILD_TYPE }} 
+        -DOPENAPI_JSON=${{ matrix.OPENAPI_JSON }} -DOPENAPI_CLIENT=${{ matrix.OPENAPI_CLIENT }} 
+        -DOPENAPI_UTF16_STRINGS=${{ matrix.OPENAPI_UTF16_STRINGS }} -B build
+    - name: run build
+      run: cmake --build build --config ${{ matrix.BUILD_TYPE }}
+    
+    - name: run test
+      run: ctest -C ${{ matrix.BUILD_TYPE }} --test-dir build
 
     - uses: actions/checkout@v3
     - name: Build wheels
