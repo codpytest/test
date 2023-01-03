@@ -31,7 +31,7 @@ jobs:
       if: matrix.os == 'windows-latest'
       run: choco install boost-msvc-14.1
     - name: Build project
-      run: make
+      run: make build
     # - name: Get Boost
     #   uses: MarkusJx/install-boost@v2.0.0
     #   id: install-boost
