@@ -23,8 +23,13 @@ jobs:
         os: [windows-latest, ubuntu-latest]
         python-version: ["3.10"]
     steps:
+      # - name: Install boost
+      #   uses: MarkusJx/install-boost@v2.1.0
+      #   id: install-boost
+      #   with:
+      #     boost_version: 1.76.0
+      #     boost_install_dir: ${{ matrix.boost_install_dir }}
       - uses: actions/checkout@v3
-      
       - name: Install boost
       uses: MarkusJx/install-boost@v2.0.0
       id: install-boost
@@ -39,6 +44,7 @@ jobs:
         ./configure --with-boost=${BOOST_ROOT}
         make
 
+      - uses: actions/checkout@v3
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.11.4
         env:
