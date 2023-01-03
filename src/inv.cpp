@@ -19,7 +19,7 @@ Eigen::VectorXd lstsq(Eigen::MatrixXd A, Eigen::VectorXd b) {
     return (A.transpose() * A).ldlt().solve(A.transpose() * b);
 }
 
-xt::xarray<double> a = xt::random::randn<double>({10}, -0.5, 0.5);
+//xt::xarray<double> a = xt::random::randn<double>({10}, -0.5, 0.5);
 
 
 
