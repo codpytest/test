@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=42", "pybind11[global]"]
+requires = ["setuptools>=42", "pybind11[global]", "cmake>=3.16", "boost-cpp>=1.72"]
 build-backend = "setuptools.build_meta"
 
 [tool.cibuildwheel]
@@ -7,6 +7,10 @@ build-verbosity = 3
 # Skip 32 bit architectures, musllinux, and i686
 skip = ["*-win32", "*-musllinux_x86_64", "*_i686"]
 before-build = "python -m pip install cmake"
+
+[tool.cmake]
+cmake-args = "-DBOOST_ROOT=$(python -c 'import boost_cpp; print(boost_cpp.include_paths()[0])')"
+
 
 [tool.cibuildwheel.windows]
 before-all = [

@@ -55,6 +55,9 @@ jobs:
     #   run: ctest -C ${{ matrix.BUILD_TYPE }} --test-dir build
 
     - uses: actions/checkout@v3
+    - name: Build and install project
+      run: |
+        pip install -e .
     - name: Build wheels
       uses: pypa/cibuildwheel@v2.11.4
       env:
