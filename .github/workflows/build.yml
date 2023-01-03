@@ -23,12 +23,19 @@ jobs:
         os: [windows-latest, ubuntu-latest]
         python-version: ["3.10"]
     steps:
-      # - name: Install boost
-      #   uses: MarkusJx/install-boost@v2.1.0
-      #   id: install-boost
-      #   with:
-      #     boost_version: 1.76.0
-      #     boost_install_dir: ${{ matrix.boost_install_dir }}
+      - name: Install boost
+      uses: MarkusJx/install-boost@v2.0.0
+      id: install-boost
+      with:
+        boost_version: 1.71.0
+      
+      - name: Build
+      env:
+        BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
+      run: |
+        ./autogen.sh
+        ./configure --with-boost=${BOOST_ROOT}
+        make
 
       - uses: actions/checkout@v3
       - name: Build wheels

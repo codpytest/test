@@ -1,7 +1,7 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/numpy.h>
 #include <pybind11/eigen.h>
-//#include <boost/stacktrace.hpp>
+#include <boost/stacktrace.hpp>
 //#include <xtensor>
 #include <Eigen/LU>
 #include <Eigen/Dense>
@@ -11,11 +11,13 @@ namespace py = pybind11;
 using namespace pybind11::literals;
 using namespace std;
 
+#define EIGEN_USE_MKL_ALL
+
 Eigen::MatrixXd inv(Eigen::MatrixXd& xs) {
     return xs.inverse();
 }
 
-Eigen::VectorXd lstsq(Eigen::MatrixXd A, Eigen::VectorXd b) {
+Eigen::VectorXd lstsq(Eigen::MatrixXd& A, Eigen::VectorXd& b) {
     return (A.transpose() * A).ldlt().solve(A.transpose() * b);
 }
 
