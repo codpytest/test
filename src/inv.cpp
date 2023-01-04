@@ -23,6 +23,10 @@ Eigen::VectorXd lstsq(Eigen::MatrixXd& A, Eigen::VectorXd& b) {
     return (A.transpose() * A).ldlt().solve(A.transpose() * b);
 }
 
+
+boost::shared_ptr<int> p1{new int{1}};
+//xt::xarray<double> a = xt::random::randn<double>({10}, -0.5, 0.5);
+
 double logn(double mu, double sigma){
     boost::random::mt19937 engine; // uniform random bit engine
     // seed the URBG
@@ -35,12 +39,6 @@ double logn(double mu, double sigma){
     boost::random::lognormal_distribution<double> dist(mu, sigma);
     return dist(engine);
 }
-
-
-boost::shared_ptr<int> p1{new int{1}};
-//xt::xarray<double> a = xt::random::randn<double>({10}, -0.5, 0.5);
-
-
 
 PYBIND11_PLUGIN(inv) {
     pybind11::module m("code", "auto-compiled c++ extension");
