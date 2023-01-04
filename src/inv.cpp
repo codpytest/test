@@ -2,8 +2,9 @@
 #include <pybind11/numpy.h>
 #include <pybind11/eigen.h>
 #include <boost/smart_ptr/shared_ptr.hpp>
-#include <boost/random.hpp>
-#include <boost/random/random_device.hpp>
+// #include <boost/random.hpp>
+// #include <boost/random/random_device.hpp>
+#include <boost/chrono.hpp>
 //#include <xtensor>
 #include <Eigen/LU>
 #include <Eigen/Dense>
@@ -27,23 +28,23 @@ Eigen::VectorXd lstsq(Eigen::MatrixXd& A, Eigen::VectorXd& b) {
 boost::shared_ptr<int> p1{new int{1}};
 //xt::xarray<double> a = xt::random::randn<double>({10}, -0.5, 0.5);
 
-double logn(double mu, double sigma){
-    boost::random::mt19937 engine; // uniform random bit engine
-    // seed the URBG
-    boost::random::random_device dev;
-    engine.seed(dev); // actually without call operator is better with boost
+// double logn(double mu, double sigma){
+//     boost::random::mt19937 engine; // uniform random bit engine
+//     // seed the URBG
+//     boost::random::random_device dev;
+//     engine.seed(dev); // actually without call operator is better with boost
 
-    // setup a distribution:
-    // double mu    = 1.0;
-    // double sigma = 1.0;
-    boost::random::lognormal_distribution<double> dist(mu, sigma);
-    return dist(engine);
-}
+//     // setup a distribution:
+//     // double mu    = 1.0;
+//     // double sigma = 1.0;
+//     boost::random::lognormal_distribution<double> dist(mu, sigma);
+//     return dist(engine);
+// }
 
 PYBIND11_PLUGIN(inv) {
     pybind11::module m("code", "auto-compiled c++ extension");
     m.def("inv", &inv);
     m.def("lstsq", &lstsq);
-    m.def("logn", &logn);
+   // m.def("logn", &logn);
     return m.ptr();
 }
