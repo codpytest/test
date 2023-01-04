@@ -24,63 +24,27 @@ jobs:
         python-version: ["3.10"]
     steps:
       - uses: actions/checkout@v3
-      # - name: Install Boost
-      #   if: matrix.os == 'ubuntu-latest'
-      #   run: sudo apt-get update && sudo apt-get install libboost-all-dev
-      # - name: Install Boost
-      #   if: matrix.os == 'windows-latest'
-      #   run: choco install boost-msvc-14.1
-      # - name: Build project
-      #   run: make build
-
-      # - name: Build wheels
-      #   uses: pypa/cibuildwheel@v2.11.4
-      #   env:
-      #     CIBW_BUILD: cp38-* cp39-* cp310-* cp311-*
-      #     CIBW_SKIP: "*-win32 *-musllinux_x86_64 *_i686"
-      #     # CIBW_BEFORE_BUILD: python -m pip install cmake
-      #     # CIBW_BEFORE_BUILD_LINUX: echo $BOOST_ROOT
-      #     # CIBW_ENVIRONMENT_WINDOWS: BOOST_ROOT='${{ steps.install-boost.outputs.BOOST_ROOT }}'
-      #     # # CIBW_ENVIRONMENT_MACOS: BOOST_ROOT='${{ steps.install-boost.outputs.BOOST_ROOT }}'
-      #     # CIBW_ENVIRONMENT_LINUX: BOOST_ROOT=/boost
-      #     # CIBW_ENVIRONMENT_PASS_LINUX: BOOST_ROOT
-
-
-      - name: Build ${{ matrix.os }} wheels and test
+      - name: Install Boost
+        if: matrix.os == 'ubuntu-latest'
+        run: sudo apt-get update && sudo apt-get install libboost-all-dev
+      - name: Install Boost
+        if: matrix.os == 'windows-latest'
+        run: choco install boost-msvc-14.1
+      - name: Build project
+        run: make build
+        
+      - name: Build wheels
         uses: pypa/cibuildwheel@v2.11.4
-        with:
-          output-dir: dist
         env:
-          CIBW_BUILD_VERBOSITY_MACOS: 0
-          CIBW_BUILD_VERBOSITY_LINUX: 0
-          CIBW_BUILD_VERBOSITY_WINDOWS: 0
-          # build python 3.7 and 3.8
-          CIBW_BUILD: cp37-* cp38-* cp39-*
-          CIBW_SKIP: '*-manylinux_i686 *-win32'
-          # we need boost
-          CIBW_MANYLINUX_X86_64_IMAGE: manylinux2010
-          CIBW_ENVIRONMENT_LINUX: "PATH=/project/cmake-3.25.1-Linux-`uname -m`/bin:$PATH BUILD_VDF_CLIENT=N"
-          CIBW_BEFORE_ALL_LINUX: >
-            curl -L https://github.com/Kitware/CMake/releases/download/v3.25.1/cmake-3.25.1-Linux-`uname -m`.sh > cmake.sh
-            && yes | sh cmake.sh | cat
-            && rm -f /usr/bin/cmake
-            && yum -y install epel-release
-            && yum -y install boost-devel lzip
-            && curl -L https://gmplib.org/download/gmp/gmp-6.2.1.tar.lz | tar x --lzip
-            && cp src/lib/gmp-patch-6.2.1/longlong.h gmp-6.2.1/
-            && cp src/lib/gmp-patch-6.2.1/compat.c gmp-6.2.1/
-            && cd gmp-6.2.1 && ./configure --enable-fat --enable-cxx
-            && make && make install && cd .. && rm -rf gmp-6.2.1
-          CIBW_BEFORE_BUILD_LINUX: >
-            python -m pip install --upgrade pip
-          # CIBW_ARCHS_MACOS: x86_64 arm64 universal2
-          CIBW_ARCHS_MACOS: x86_64
-          CIBW_TEST_SKIP: '*_arm64 *_universal2:arm64'
-          CIBW_BEFORE_ALL_MACOS: >
-            brew install boost
-          CIBW_BEFORE_BUILD_MACOS: >
-            python -m pip install --upgrade pip
-          CIBW_ENVIRONMENT_MACOS: "MACOSX_DEPLOYMENT_TARGET=10.14 BUILD_VDF_CLIENT=N"
+          CIBW_BUILD: cp38-* cp39-* cp310-* cp311-*
+          CIBW_SKIP: "*-win32 *-musllinux_x86_64 *_i686"
+          # CIBW_BEFORE_BUILD: python -m pip install cmake
+          # CIBW_BEFORE_BUILD_LINUX: echo $BOOST_ROOT
+          # CIBW_ENVIRONMENT_WINDOWS: BOOST_ROOT='${{ steps.install-boost.outputs.BOOST_ROOT }}'
+          # # CIBW_ENVIRONMENT_MACOS: BOOST_ROOT='${{ steps.install-boost.outputs.BOOST_ROOT }}'
+          # CIBW_ENVIRONMENT_LINUX: BOOST_ROOT=/boost
+          # CIBW_ENVIRONMENT_PASS_LINUX: BOOST_ROOT
+
       - uses: actions/upload-artifact@v3
         with:
           path: ./wheelhouse/*.whl
