@@ -8,7 +8,7 @@ set(Boost_USE_STATIC_LIBS ON)  # only find static libs
 # set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++ -static")
 
 # find Boost
-find_package(Boost 1.74.0 REQUIRED COMPONENTS program_options serialization chrono random)
+find_package(Boost 1.72.0 REQUIRED COMPONENTS program_options serialization chrono random)
 if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
     # add Boost to link libraries
