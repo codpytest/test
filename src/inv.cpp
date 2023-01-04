@@ -2,7 +2,7 @@
 #include <pybind11/numpy.h>
 #include <pybind11/eigen.h>
 #include <boost/smart_ptr/shared_ptr.hpp>
-#include <boost/random/normal_distribution.hpp>
+#include <boost/math/distributions/students_t.hpp>
 //#include <xtensor>
 #include <Eigen/LU>
 #include <Eigen/Dense>
@@ -22,28 +22,37 @@ Eigen::VectorXd lstsq(Eigen::MatrixXd& A, Eigen::VectorXd& b) {
     return (A.transpose() * A).ldlt().solve(A.transpose() * b);
 }
 
-template<class T>
-double gen_normal(T &generator)
-{
-  return generator();
-}
+namespace boost{ namespace math{
 
-// template<class T>
-// void gen_normal(T &generator,
-//               std::vector<double> &res)
-// {
-//   for(size_t i=0; i<res.size(); ++i)
-//     res[i]=generator();
-// }
+template <class RealType = double,
+          class Policy   = policies::policy<> >
+class students_t_distribution;
 
-double normal(void)
+typedef students_t_distribution<> students_t;
+
+template <class RealType, class Policy>
+class students_t_distribution
 {
-    boost::variate_generator<boost::mt19937, boost::normal_distribution<> >
-    generator(boost::mt19937(time(0)),
-              boost::normal_distribution<>());
-    double r = gen_normal(generator());
-  return r;
-}
+   typedef RealType value_type;
+   typedef Policy   policy_type;
+
+   // Construct:
+   students_t_distribution(const RealType& v);
+
+   // Accessor:
+   RealType degrees_of_freedom()const;
+
+   // degrees of freedom estimation:
+   static RealType find_degrees_of_freedom(
+      RealType difference_from_mean,
+      RealType alpha,
+      RealType beta,
+      RealType sd,
+      RealType hint = 100);
+};
+
+}} // namespaces
+
 
 boost::shared_ptr<int> p1{new int{1}};
 //xt::xarray<double> a = xt::random::randn<double>({10}, -0.5, 0.5);
@@ -54,6 +63,6 @@ PYBIND11_PLUGIN(inv) {
     pybind11::module m("code", "auto-compiled c++ extension");
     m.def("inv", &inv);
     m.def("lstsq", &lstsq);
-    m.def("normal", &normal);
+    m.def("t_distribution", &students_t_distribution);
     return m.ptr();
 }
