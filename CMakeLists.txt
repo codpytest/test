@@ -17,5 +17,5 @@ link_libraries(${Boost_LIBRARIES})
 
 add_executable(testing ${FILES})
 
-target_link_libraries(Server ${Boost_LIBRARIES} pthread)
+target_link_libraries(testing ${Boost_LIBRARIES} pthread)
 # add_executable(testing main.cpp)
