@@ -1,5 +1,5 @@
 install:
-	- if [ "${GITHUB_RUN_OS}" = "Ubuntu" ]; then sudo apt-get update && sudo apt-get install libboost-all-dev=1.72.0; fi
+	- if [ "${GITHUB_RUN_OS}" = "Ubuntu" ]; then sudo apt-get update && sudo apt-get install libboost-all-dev=1.72.0.1; fi
 
 	- if [ "${GITHUB_RUN_OS}" = "Windows" ]; then choco install boost-msvc-14.1; fi
 build:
