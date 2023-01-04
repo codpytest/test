@@ -1,7 +1,7 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/numpy.h>
 #include <pybind11/eigen.h>
-#include <boost/smart_ptr/shared_ptr.hpp>
+//#include <boost/smart_ptr/shared_ptr.hpp>
 // #include <boost/random.hpp>
 // #include <boost/random/random_device.hpp>
 #include <boost/chrono.hpp>
@@ -25,7 +25,7 @@ Eigen::VectorXd lstsq(Eigen::MatrixXd& A, Eigen::VectorXd& b) {
 }
 
 
-boost::shared_ptr<int> p1{new int{1}};
+//boost::shared_ptr<int> p1{new int{1}};
 //xt::xarray<double> a = xt::random::randn<double>({10}, -0.5, 0.5);
 
 // double logn(double mu, double sigma){
