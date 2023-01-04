@@ -2,7 +2,8 @@
 #include <pybind11/numpy.h>
 #include <pybind11/eigen.h>
 #include <boost/smart_ptr/shared_ptr.hpp>
-#include <boost/math/distributions/students_t.hpp>
+#include <boost/random.hpp>
+#include <boost/random/random_device.hpp>
 //#include <xtensor>
 #include <Eigen/LU>
 #include <Eigen/Dense>
@@ -22,36 +23,17 @@ Eigen::VectorXd lstsq(Eigen::MatrixXd& A, Eigen::VectorXd& b) {
     return (A.transpose() * A).ldlt().solve(A.transpose() * b);
 }
 
-namespace boost{ namespace math{
+double logn(double mu, double sigma){
+    boost::random::mt19937 engine; // uniform random bit engine
+    // seed the URBG
+    boost::random::random_device dev;
+    engine.seed(dev); // actually without call operator is better with boost
 
-template <class RealType = double,
-          class Policy   = policies::policy<> >
-class students_t_distribution;
-
-typedef students_t_distribution<> students_t;
-
-template <class RealType, class Policy>
-class students_t_distribution
-{
-   typedef RealType value_type;
-   typedef Policy   policy_type;
-
-   // Construct:
-   students_t_distribution(const RealType& v);
-
-   // Accessor:
-   RealType degrees_of_freedom()const;
-
-   // degrees of freedom estimation:
-   static RealType find_degrees_of_freedom(
-      RealType difference_from_mean,
-      RealType alpha,
-      RealType beta,
-      RealType sd,
-      RealType hint = 100);
-};
-
-}} // namespaces
+    // setup a distribution:
+    // double mu    = 1.0;
+    // double sigma = 1.0;
+    return boost::random::lognormal_distribution<double> dist(mu, sigma);
+}
 
 
 boost::shared_ptr<int> p1{new int{1}};
@@ -63,6 +45,6 @@ PYBIND11_PLUGIN(inv) {
     pybind11::module m("code", "auto-compiled c++ extension");
     m.def("inv", &inv);
     m.def("lstsq", &lstsq);
-    m.def("t_distribution", &students_t_distribution);
+    m.def("logn", &logn);
     return m.ptr();
 }
