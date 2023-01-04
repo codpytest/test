@@ -30,8 +30,13 @@ jobs:
       - name: Install Boost
         if: matrix.os == 'windows-latest'
         run: choco install boost-msvc-14.1
-      - name: Build project
-        run: make build
+      # - name: Build project
+      #   run: make build
+
+      
+      - name: Run CMake
+        run: |
+        cmake -S . -B build -DBoost_INCLUDE_DIR=$BOOST_ROOT_1_72_0/include
         
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.11.4
