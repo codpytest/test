@@ -32,8 +32,8 @@ jobs:
       run: choco install boost-msvc-14.1
     - name: Build project
       run: make build
-      
-    - uses: actions/upload-artifact@v3
+
+    # - uses: actions/upload-artifact@v3
 
     - name: Build wheels
       uses: pypa/cibuildwheel@v2.11.4
