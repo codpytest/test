@@ -23,20 +23,21 @@ jobs:
         os: [windows-latest, ubuntu-latest]
         python-version: ["3.10"]
     steps:
+      - uses: actions/checkout@v3
       - name: Install Boost
         if: matrix.os == 'ubuntu-latest'
         run: sudo apt-get update && sudo apt-get install libboost-all-dev
       - name: Install Boost
         if: matrix.os == 'windows-latest'
         run: choco install boost-msvc-14.1
-      # - name: Build project
-      #   run: make build
+      - name: Build project
+        run: make build
 
+      
       - name: Run CMake
         run: |
-          cmake -S . -B build -DBoost_INCLUDE_DIR=$BOOST_ROOT_1_74_0/include
-      
-      - uses: actions/checkout@v3
+          cmake -S . -B build -DBoost_INCLUDE_DIR=$BOOST_ROOT_1_72_0/include
+        
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.11.4
         env:
@@ -68,37 +69,3 @@ jobs:
         with:
           user: __token__
           password: ${{ secrets.PYPY_API_TOKEN }}
-
-
-
-
-
-
-
-      # - name: Set up conda environment
-      #   uses: conda-incubator/setup-miniconda@v2
-      #   with:
-      #     miniconda-version: "latest"
-      #     auto-update-conda: true
-      #     activate-environment: conda-env
-      #   if: runner.os == 'Windows' || runner.os == 'Linux'
-
-      # - name: Install libraries for Windows
-      #   run: |
-      #     conda install -c conda-forge boost
-      #   # conda install -c conda-forge eigen
-      #   shell: pwsh
-      #   if: runner.os == 'Windows'
-
-      # - name: Install libraries for Linux
-      #   run: |
-      #     conda install -c conda-forge boost
-      #   # conda install -c conda-forge eigen
-      #   # sudo apt-get update
-      #   # sudo apt-get install libboost-all-dev
-      #   shell: bash
-      #   if: runner.os == 'Linux'
-
-      # - uses: actions/checkout@v3
-      #   with:
-      #     submodules: true
