@@ -32,7 +32,8 @@ double logn(double mu, double sigma){
     // setup a distribution:
     // double mu    = 1.0;
     // double sigma = 1.0;
-    return boost::random::lognormal_distribution<double> dist(mu, sigma);
+    boost::random::lognormal_distribution<double> dist(mu, sigma);
+    return dist(engine);
 }
 
 
