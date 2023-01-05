@@ -1,6 +1,7 @@
 # Author: SMI
 cmake_minimum_required(VERSION 3.15)
 project(testing)
+file(GLOB_RECURSE SOURCES RELATIVE ${CMAKE_SOURCE_DIR} "src/*.cpp")
 
 
 set(CMAKE_CXX_STANDARD 17)
@@ -30,6 +31,6 @@ if(Boost_FOUND)
     #link_directories (${Boost_LIBRARY_DIRS})
     link_libraries(${Boost_LIBRARIES})     # add Boost to link libraries
 endif()
-add_subdirectory(src)
-add_executable(inv inv.cpp)
+
+add_executable(inv ${SOURCES})
 target_link_libraries(inv Boost::boost Boost::chrono Boost::date_time) 
