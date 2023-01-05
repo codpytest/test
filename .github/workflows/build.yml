@@ -32,8 +32,6 @@ jobs:
         run: choco install boost-msvc-14.2
       # - name: Build project
       #   run: make build
-
-      
       - name: Run CMake
         run: |
           cmake -S . -B build 
