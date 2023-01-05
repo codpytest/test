@@ -19,6 +19,7 @@ set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++ -static")
 
 
 find_package(Boost 1.74.0 REQUIRED COMPONENTS program_options serialization chrono random) # find Boost
+find_package(pybind11 REQUIRED)
 if(Boost_FOUND)
     # From the offical documentation:
     # Add include directories to the build. [...] If the SYSTEM option is given,
