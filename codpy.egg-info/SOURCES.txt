@@ -1,0 +1,10 @@
+MANIFEST.in
+README.md
+license
+setup.py
+codpy/print_ok.py
+codpy/printf.c
+codpy.egg-info/PKG-INFO
+codpy.egg-info/SOURCES.txt
+codpy.egg-info/dependency_links.txt
+codpy.egg-info/top_level.txt

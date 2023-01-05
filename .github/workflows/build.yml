@@ -29,16 +29,18 @@ jobs:
         run: sudo apt-get update && sudo apt-get install libboost-all-dev
       - name: Install Boost
         if: matrix.os == 'windows-latest'
-        run: choco install boost-msvc-14.2
-      # - name: Build project
-      #   run: make build
+        run: choco install boost-msvc-14.3
 
-      
       - name: Run CMake
         run: |
           cmake -S . -B build 
         # -DBoost_INCLUDE_DIR=$BOOST_ROOT_1_74_0/include
-        
+      
+      - name: Checkout repository and submodules
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+          
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.11.4
         env:
