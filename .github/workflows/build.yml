@@ -20,20 +20,20 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-latest, ubuntu-latest]
+        os: [windows-latest, ubuntu-latest, macos-latest]
         python-version: ["3.10"]
     steps:
       - uses: actions/checkout@v3
-      - name: Install Boost
-        if: matrix.os == 'ubuntu-latest'
-        run: sudo apt-get update && sudo apt-get install libboost-all-dev
-      - name: Install Boost
-        if: matrix.os == 'windows-latest'
-        run: choco install boost-msvc-14.2
+      # - name: Install Boost
+      #   if: matrix.os == 'ubuntu-latest'
+      #   run: sudo apt-get update && sudo apt-get install libboost-all-dev
+      # - name: Install Boost
+      #   if: matrix.os == 'windows-latest'
+      #   run: choco install boost-msvc-14.2
 
-      - name: Run CMake
-        run: |
-          cmake -S . -B build 
+      # - name: Run CMake
+      #   run: |
+      #     cmake -S . -B build 
         # -DBoost_INCLUDE_DIR=$BOOST_ROOT_1_74_0/include
           
       - name: Build wheels
@@ -41,12 +41,6 @@ jobs:
         env:
           CIBW_BUILD: cp37-* cp38-* cp39-* cp310-* cp311-*
           CIBW_SKIP: "*-win32 *-musllinux_x86_64 *_i686"
-          # CIBW_BEFORE_BUILD: python -m pip install cmake
-          # CIBW_BEFORE_BUILD_LINUX: echo $BOOST_ROOT
-          # CIBW_ENVIRONMENT_WINDOWS: BOOST_ROOT='${{ steps.install-boost.outputs.BOOST_ROOT }}'
-          # # CIBW_ENVIRONMENT_MACOS: BOOST_ROOT='${{ steps.install-boost.outputs.BOOST_ROOT }}'
-          # CIBW_ENVIRONMENT_LINUX: BOOST_ROOT=/boost
-          # CIBW_ENVIRONMENT_PASS_LINUX: BOOST_ROOT
 
       - uses: actions/upload-artifact@v3
         with:
