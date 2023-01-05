@@ -4,17 +4,16 @@ project(testing)
 
 set(CMAKE_CXX_STANDARD 17)
 set(Boost_USE_STATIC_LIBS ON)  # only find static libs
-# set(CMAKE_CXX_STANDARD_REQUIRED True)
-# set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++ -static")
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++ -static")
 
-# find Boost
-find_package(Boost 1.74.0 REQUIRED COMPONENTS program_options serialization chrono random)
+find_package(Boost 1.74.0 REQUIRED COMPONENTS program_options serialization chrono random) # find Boost
 if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
     # add Boost to link libraries
     link_libraries(${Boost_LIBRARIES})
 endif()
-target_link_libraries(${testing} Boost::boost Boost::chrono Boost::date_time) 
+# target_link_libraries(${testing} Boost::boost Boost::chrono Boost::date_time) 
 # add_executable(testing ${FILES})
 
 # add_executable(testing main.cpp)
