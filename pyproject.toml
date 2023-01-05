@@ -6,14 +6,8 @@ build-backend = "setuptools.build_meta"
 build-verbosity = 3
 # Skip 32 bit architectures, musllinux, and i686
 skip = ["*-win32", "*-musllinux_x86_64", "*_i686"]
-# Build for cpython only
-skip =  "pp*"
 # before-build = "python -m pip install cmake"
 
 [tool.cibuildwheel.macos]
 # Build for x86_64 and arm64
 archs = ["x86_64", "arm64"]
-
-[tool.cibuildwheel.linux]
-# dependencies do not build for musl
-skip = ["pp* *musllinux*"]
