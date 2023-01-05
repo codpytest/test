@@ -6,4 +6,12 @@ build-backend = "setuptools.build_meta"
 build-verbosity = 3
 # Skip 32 bit architectures, musllinux, and i686
 skip = ["*-win32", "*-musllinux_x86_64", "*_i686"]
-# before-build = "python -m pip install cmake"
+before-build = "python -m pip install cmake"
+
+[tool.cibuildwheel.windows]
+before-all = [
+  "C:\\Miniconda\\condabin\\conda install -c conda-forge xsimd",
+]
+
+[tool.cibuildwheel.windows.environment]
+INCLUDE="C:\\\\Miniconda\\\\Library\\\\include"
