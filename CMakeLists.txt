@@ -30,7 +30,6 @@ if(Boost_FOUND)
     #link_directories (${Boost_LIBRARY_DIRS})
     link_libraries(${Boost_LIBRARIES})     # add Boost to link libraries
 endif()
-add_executable(cpp
-        inv.cpp
-        )
-target_link_libraries(cpp Boost::boost Boost::chrono Boost::date_time) 
+add_subdirectory(src)
+add_executable(inv inv.cpp)
+target_link_libraries(inv Boost::boost Boost::chrono Boost::date_time) 
