@@ -11,7 +11,7 @@ set(Boost_USE_STATIC_LIBS ON)  # only find static libs
 find_package(Boost 1.74.0 REQUIRED COMPONENTS program_options serialization chrono random)
 # if(Boost_FOUND)
     # include_directories(${Boost_INCLUDE_DIRS})
-target_link_libraries(progname Boost::boost Boost::chrono Boost::date_time) 
+target_link_libraries(testing Boost::boost Boost::chrono Boost::date_time) 
     # add Boost to link libraries
     # link_libraries(${Boost_LIBRARIES})
 # endif()
