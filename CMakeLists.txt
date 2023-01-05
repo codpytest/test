@@ -33,4 +33,4 @@ if(Boost_FOUND)
 endif()
 
 add_executable(inv ${SOURCES})
-target_link_libraries(inv Boost::boost Boost::chrono Boost::date_time) 
+target_link_libraries(inv Boost::boost Boost::chrono) 
