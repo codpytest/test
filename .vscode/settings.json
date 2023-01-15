@@ -1,5 +1,6 @@
 {
     "files.associations": {
         "lu": "cpp"
-    }
+    },
+    "cmake.configureOnOpen": true
 }
