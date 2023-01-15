@@ -31,13 +31,14 @@ jobs:
         if: matrix.os == 'windows-latest'
         run: choco install boost-msvc-14.2
 
-      - name: Run CMake
-        run: cmake -S . -B build -DBoost_INCLUDE_DIR=$BOOST_ROOT_1_74_0/include
+      # - name: Run CMake
+      #   run: cmake -S . -B build -DBoost_INCLUDE_DIR=$BOOST_ROOT_1_74_0/include
           
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.11.4
         env:
-          CIBW_BUILD: cp37-* cp38-* cp39-* cp310-* cp311-*
+          # CIBW_BUILD: cp37-* cp38-* cp39-* cp310-* cp311-*
+          CIBW_BUILD: cp39-*
           CIBW_SKIP: "*-win32 *-musllinux_x86_64 *_i686"
           # CIBW_ARCHS_MACOS: x86_64 universal2
           CIBW_ARCHS_WINDOWS: AMD64 x86 ARM64
